@@ -3,31 +3,39 @@ package com.oaf.loanservice.domain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity
 public class Season {
 
-    private Integer id;
-    private String name;
+    private Integer seasonID;
+    private String seasonName;
     private Date startDate;
     private Date endDate;
 
-    public Integer getId() {
-        return id;
+    public Season() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Season(Integer seasonID, String seasonName, Date startDate, Date endDate) {
+        this.seasonID = seasonID;
+        this.seasonName = seasonName;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public String getName() {
-        return name;
+    public Integer getSeasonID() {
+        return seasonID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSeasonID(Integer seasonID) {
+        this.seasonID = seasonID;
+    }
+
+    public String getSeasonName() {
+        return seasonName;
+    }
+
+    public void setSeasonName(String seasonName) {
+        this.seasonName = seasonName;
     }
 
     public Date getStartDate() {
