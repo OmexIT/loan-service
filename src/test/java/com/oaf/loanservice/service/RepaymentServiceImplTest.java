@@ -51,9 +51,9 @@ public class RepaymentServiceImplTest {
 
     @Test
     public void testRepayOverride() {
-        seasonRepository.findById(1).ifPresent(System.err::println);
-        customerRepository.findById(1).ifPresent(System.err::println);
-        customerSummaryRepository.findCustomerYoungestSeason(1).ifPresent(System.err::println);
+//        seasonRepository.findById(1).ifPresent(System.err::println);
+//        customerRepository.findById(1).ifPresent(System.err::println);
+//        customerSummaryRepository.findCustomerYoungestSeason(1).ifPresent(System.err::println);
 
         RepaymentUpload repaymentUpload = repaymentUploadRepository.save(new RepaymentUpload(null, 1, new Date(), 300, 1));
         System.err.println(repaymentUpload);

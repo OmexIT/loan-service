@@ -2,9 +2,12 @@ package com.oaf.loanservice.dao;
 
 import com.oaf.loanservice.domain.CustomerSummary;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,27 @@ public class CustomerSummaryRepository {
                 "INSERT INTO CustomerSummaries(CustomerID, SeasonID, Credit,TotalRepaid) VALUES (?, ?, ?, ?)",
                 customerSummary.getCustomerID(), customerSummary.getSeasonID(), customerSummary.getCredit(),
                 customerSummary.getTotalRepaid());
+    }
+
+    public int[] save(List<CustomerSummary> customerSummaries) {
+        String sql = "INSERT INTO CustomerSummaries(CustomerID, SeasonID, Credit,TotalRepaid) VALUES (?, ?, ?, ?)";
+        int[] rows = jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                CustomerSummary summary = customerSummaries.get(i);
+                ps.setInt(1, summary.getCustomerID());
+                ps.setInt(2, summary.getSeasonID());
+                ps.setDouble(3, summary.getCredit());
+                ps.setDouble(4, summary.getTotalRepaid());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return customerSummaries.size();
+            }
+        });
+
+        return rows;
     }
 
     public int update(CustomerSummary customerSummary) {

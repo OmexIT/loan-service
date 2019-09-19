@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <meta charset="UTF-8">
+    <title>OAF Loan Portal</title>
+</head>
+<body>
+
+<div class="col-12">
+    <h2 class="text-center text-info">OAF Loan Portal::Confirm Upload</h2>
+    <hr/>
+    <div th:if="${message}">
+        <h2 class="text-success" th:text="${message}"/>
+
+        <div class="row">
+            <div class="col-3">
+                <h3>Uploaded Seasons</h3>
+                <div class="table-view">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <th>Season ID</th>
+                            <th>Season Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${seasons.empty}">
+                            <td colspan="2"> No Seasons Available</td>
+                        </tr>
+                        <tr th:each="season : ${seasons}">
+                            <td><span th:text="${season.SeasonID}">  </span></td>
+                            <td><span th:text="${season.SeasonName}">  </span></td>
+                            <td><span th:text="${#dates.format(season.StartDate, 'M-d-yyyy')}">  </span></td>
+                            <td><span th:text="${#dates.format(season.EndDate, 'M-d-yyyy')}">  </span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-3">
+                <h3>Uploaded Customers</h3>
+                <div class="table-view">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${customers.empty}">
+                            <td colspan="2"> No Customers Available</td>
+                        </tr>
+                        <tr th:each="customer : ${customers}">
+                            <td><span th:text="${customer.CustomerID}">  </span></td>
+                            <td><span th:text="${customer.CustomerName}">  </span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-3">
+                <h3>Uploaded Customer Summaries</h3>
+                <div class="table-view">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Season ID</th>
+                            <th>Credit</th>
+                            <th>Total Repaid</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${summaries.empty}">
+                            <td colspan="2"> No Summary Available</td>
+                        </tr>
+                        <tr th:each="summary : ${summaries}">
+                            <td><span th:text="${summary.CustomerID}">  </span></td>
+                            <td><span th:text="${summary.SeasonID}">  </span></td>
+                            <td><span th:text="${summary.Credit}">  </span></td>
+                            <td><span th:text="${summary.TotalRepaid}">  </span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-3">
+                <h3>Uploaded Repayments</h3>
+                <div class="table-view">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Season ID</th>
+                            <th>Credit</th>
+                            <th>Total Repaid</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${repayments.empty}">
+                            <td colspan="2"> No Summary Available</td>
+                        </tr>
+                        <tr th:each="repayment : ${repayments}">
+                            <td><span th:text="${repayment.CustomerID}">  </span></td>
+                            <td><span th:text="${repayment.SeasonID}">  </span></td>
+                            <td><span th:text="${#dates.format(repayment.Date, 'M-d-yyyy')}">  </span></td>
+                            <td><span th:text="${repayment.Amount}">  </span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="text-right mb-3">
+                <a href="/" class="btn btn-info"> << Go Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

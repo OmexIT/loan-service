@@ -23,7 +23,7 @@ CREATE TABLE CustomerSummaries
     FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
     FOREIGN KEY (SeasonID) REFERENCES Seasons (SeasonID)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;;
+  DEFAULT CHARSET = utf8;
 
 CREATE TABLE RepaymentUploads
 (
@@ -51,3 +51,24 @@ CREATE TABLE Repayments
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+delimiter //
+CREATE TRIGGER tg_after_insert_repayment
+    AFTER INSERT
+    ON Repayments
+    FOR EACH ROW
+BEGIN
+    UPDATE CustomerSummaries SET TotalRepaid = (TotalRepaid + NEW.Amount) WHERE SeasonID = NEW.SeasonID and CustomerID = NEW.CustomerID;
+END;
+//
+delimiter ;
+
+delimiter //
+CREATE TRIGGER tg_after_update_repayment
+    AFTER UPDATE
+    ON Repayments
+    FOR EACH ROW
+BEGIN
+    UPDATE CustomerSummaries SET TotalRepaid = (TotalRepaid + (NEW.Amount - OLD.Amount)) WHERE SeasonID = NEW.SeasonID and CustomerID = NEW.CustomerID;
+END;
+//
+delimiter ;

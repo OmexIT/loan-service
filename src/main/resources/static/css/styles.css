@@ -1,0 +1,19 @@
+.table {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.table-view{
+    height: 700px !important;
+    overflow: auto;
+}
+
+/*.footer {*/
+/*    position: fixed;*/
+/*    left: 0;*/
+/*    bottom: 0;*/
+/*    width: 100%;*/
+/*    background-color: #e2e3e5;*/
+/*    color: white;*/
+/*    text-align: center;*/
+/*}*/

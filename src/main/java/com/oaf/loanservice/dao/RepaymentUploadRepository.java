@@ -3,7 +3,6 @@ package com.oaf.loanservice.dao;
 import com.oaf.loanservice.domain.RepaymentUpload;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -50,10 +49,10 @@ public class RepaymentUploadRepository {
                 (rs, rowNum) ->
                         new RepaymentUpload(
                                 rs.getInt("RepaymentUploadID"),
+                                rs.getInt("CustomerID"),
                                 rs.getInt("SeasonID"),
                                 rs.getDate("Date"),
-                                rs.getDouble("Amount"),
-                                rs.getInt("CustomerID")
+                                rs.getDouble("Amount")
                         )
         );
     }
@@ -65,10 +64,10 @@ public class RepaymentUploadRepository {
                 (rs, rowNum) ->
                         Optional.of(new RepaymentUpload(
                                 rs.getInt("RepaymentUploadID"),
+                                rs.getInt("CustomerID"),
                                 rs.getInt("SeasonID"),
                                 rs.getDate("Date"),
-                                rs.getDouble("Amount"),
-                                rs.getInt("CustomerID")
+                                rs.getDouble("Amount")
                         ))
         );
     }

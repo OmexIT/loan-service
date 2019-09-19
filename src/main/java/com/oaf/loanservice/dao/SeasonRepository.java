@@ -2,9 +2,13 @@ package com.oaf.loanservice.dao;
 
 import com.oaf.loanservice.domain.Season;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +25,27 @@ public class SeasonRepository {
         return jdbcTemplate.update(
                 "INSERT INTO Seasons(SeasonID, SeasonName, StartDate, EndDate) VALUES (?, ?, ?, ?)",
                 season.getSeasonID(), season.getSeasonName(), season.getStartDate(), season.getEndDate());
+    }
+
+    public int[] save(List<Season> seasons) {
+        String sql = "INSERT INTO Seasons(SeasonID, SeasonName, StartDate, EndDate) VALUES (?, ?, ?, ?)";
+        int[] rows = jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                Season season = seasons.get(i);
+                ps.setInt(1, season.getSeasonID());
+                ps.setString(2, season.getSeasonName());
+                ps.setDate(3, new Date(season.getStartDate().getTime()));
+                ps.setDate(4, new Date(season.getEndDate().getTime()));
+            }
+
+            @Override
+            public int getBatchSize() {
+                return seasons.size();
+            }
+        });
+
+        return rows;
     }
 
     public int update(Season season) {

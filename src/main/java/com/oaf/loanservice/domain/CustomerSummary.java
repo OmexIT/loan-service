@@ -1,55 +1,92 @@
+
 package com.oaf.loanservice.domain;
 
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CustomerSummary {
-    private int customerID;
-    private int seasonID;
+import java.util.HashMap;
+import java.util.Map;
 
-    private double credit;
-    private double totalRepaid;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "CustomerID",
+    "SeasonID",
+    "Credit",
+    "TotalRepaid"
+})
+public class CustomerSummary {
+
+    @JsonProperty("CustomerID")
+    private Integer customerID;
+    @JsonProperty("SeasonID")
+    private Integer seasonID;
+    @JsonProperty("Credit")
+    private Double credit;
 
     public CustomerSummary() {
     }
 
-    public CustomerSummary(int customerID, int seasonID, double credit, double totalRepaid) {
+    public CustomerSummary(Integer customerID, Integer seasonID, Double credit, Double totalRepaid) {
         this.customerID = customerID;
         this.seasonID = seasonID;
         this.credit = credit;
         this.totalRepaid = totalRepaid;
     }
 
-    public int getCustomerID() {
+    @JsonProperty("TotalRepaid")
+    private Double totalRepaid;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("CustomerID")
+    public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    @JsonProperty("CustomerID")
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 
-    public int getSeasonID() {
+    @JsonProperty("SeasonID")
+    public Integer getSeasonID() {
         return seasonID;
     }
 
-    public void setSeasonID(int seasonID) {
+    @JsonProperty("SeasonID")
+    public void setSeasonID(Integer seasonID) {
         this.seasonID = seasonID;
     }
 
-    public double getCredit() {
+    @JsonProperty("Credit")
+    public Double getCredit() {
         return credit;
     }
 
-    public void setCredit(double credit) {
+    @JsonProperty("Credit")
+    public void setCredit(Double credit) {
         this.credit = credit;
     }
 
-    public double getTotalRepaid() {
+    @JsonProperty("TotalRepaid")
+    public Double getTotalRepaid() {
         return totalRepaid;
     }
 
-    public void setTotalRepaid(double totalRepaid) {
+    @JsonProperty("TotalRepaid")
+    public void setTotalRepaid(Double totalRepaid) {
         this.totalRepaid = totalRepaid;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override

@@ -32,6 +32,8 @@ public class RepaymentServiceImpl implements RepaymentService {
      *     - If the season is not specified allocate the to outstanding seasons in FIFO order, if there is overpayment
      *     then allocate the remainder amount to the latest customer season
      *     - If no outstanding credit, assign the repayment to the latest season
+     *
+     *  NOTE: Actual customer summary is updated by transactional triggers when inserting to Repayments table
      * @param repaymentUpload Repayment record uploaded
      */
     @Override
@@ -96,5 +98,28 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         }
         logger.info("event=REPAY_END, timeMS={}", System.currentTimeMillis() - start);
+    }
+
+    /***
+     * This method to adjust repayment value of one repayment
+     *
+     * @param repaymentId
+     * @param
+     */
+    @Override
+    public void adjustRepayment(int repaymentId, double adjustByValue) {
+        //TODO: Implement this method to update specified repayment by adjustByValue
+    }
+
+    /***
+     * Adjust r
+     *
+     * @param repaymentId
+     * @param adjustByValue
+     * @param adjustToSeasonId
+     */
+    @Override
+    public void adjustRepayment(int repaymentId, double adjustByValue, int adjustToSeasonId) {
+        //TODO: Implement this method to update specified repayment by adjustByValue while transferring the amount toanother season
     }
 }
